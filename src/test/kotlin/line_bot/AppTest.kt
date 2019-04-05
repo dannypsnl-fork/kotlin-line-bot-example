@@ -4,10 +4,10 @@
 package line_bot
 
 import kotlin.test.Test
-import kotlin.test.assertNotNull
+import kotlin.test.assertEquals
 
 class AppTest {
     @Test fun testAppHasAGreeting() {
-        assertNotNull("", "app should have a greeting")
+        assertEquals(echoMessage("a"), "a")
     }
 }

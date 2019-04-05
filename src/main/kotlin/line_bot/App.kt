@@ -28,7 +28,7 @@ class Application {
     fun handleTextMessageEvent(messageEvent: MessageEvent<TextMessageContent>): TextMessage {
         // FIXME: left this line just for remember how to using this
         // val context = userContextMap.getOrPut(messageEvent.source.userId) { UserContext() }
-        return TextMessage(messageEvent.message.text)
+        return TextMessage(echoMessage(messageEvent.message.text))
     }
 
     @EventMapping
@@ -36,6 +36,10 @@ class Application {
     @Suppress("unused")
     fun handleDefaultMessageEvent(event: Event) {
     }
+}
+
+fun echoMessage(message: String): String {
+    return message
 }
 
 fun main(args: Array<String>) {
