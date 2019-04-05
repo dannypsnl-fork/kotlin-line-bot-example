@@ -3,13 +3,41 @@
  */
 package line_bot
 
-class App {
-    val greeting: String
-        get() {
-            return "Hello world."
-        }
+import com.linecorp.bot.model.event.Event
+import com.linecorp.bot.spring.boot.annotation.EventMapping
+import com.linecorp.bot.spring.boot.annotation.LineMessageHandler
+import com.linecorp.bot.model.message.TextMessage
+import com.linecorp.bot.model.event.MessageEvent
+import com.linecorp.bot.model.event.message.TextMessageContent
+import org.springframework.boot.SpringApplication
+import org.springframework.boot.autoconfigure.SpringBootApplication
+import java.util.concurrent.ConcurrentHashMap
+
+// UserContext can be empty for now, so that we have a place for storing data later
+class UserContext()
+
+@SpringBootApplication
+@LineMessageHandler
+class Application {
+
+    private val userContextMap = ConcurrentHashMap<String, UserContext>()
+
+    @EventMapping
+    // @Suppress("unused") should only use for callback to remove warning
+    @Suppress("unused")
+    fun handleTextMessageEvent(messageEvent: MessageEvent<TextMessageContent>): TextMessage {
+        // FIXME: left this line just for remember how to using this
+        // val context = userContextMap.getOrPut(messageEvent.source.userId) { UserContext() }
+        return TextMessage(messageEvent.message.text)
+    }
+
+    @EventMapping
+    // @Suppress("unused") should only use for callback to remove warning
+    @Suppress("unused")
+    fun handleDefaultMessageEvent(event: Event) {
+    }
 }
 
 fun main(args: Array<String>) {
-    println(App().greeting)
+    SpringApplication.run(Application::class.java, *args)
 }
