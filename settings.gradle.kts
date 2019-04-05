@@ -8,3 +8,4 @@
  */
 
 rootProject.name = "line_bot"
+rootProject.buildFileName = "build.gradle.kts"
