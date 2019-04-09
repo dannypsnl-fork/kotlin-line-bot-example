@@ -18,7 +18,7 @@ class UserContext()
 
 @SpringBootApplication
 @LineMessageHandler
-class Application {
+open class Application {
 
     private val userContextMap = ConcurrentHashMap<String, UserContext>()
 
