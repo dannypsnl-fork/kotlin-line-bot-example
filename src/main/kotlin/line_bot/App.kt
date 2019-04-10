@@ -3,22 +3,26 @@
  */
 package line_bot
 
+import java.util.concurrent.ConcurrentHashMap
+
 import com.linecorp.bot.model.event.Event
 import com.linecorp.bot.spring.boot.annotation.EventMapping
 import com.linecorp.bot.spring.boot.annotation.LineMessageHandler
 import com.linecorp.bot.model.message.TextMessage
 import com.linecorp.bot.model.event.MessageEvent
 import com.linecorp.bot.model.event.message.TextMessageContent
+
 import org.springframework.boot.SpringApplication
-import org.springframework.boot.autoconfigure.SpringBootApplication
-import java.util.concurrent.ConcurrentHashMap
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration
+import org.springframework.context.annotation.ComponentScan
 
 // UserContext can be empty for now, so that we have a place for storing data later
 class UserContext()
 
-@SpringBootApplication
+@EnableAutoConfiguration
+@ComponentScan
 @LineMessageHandler
-class Application {
+class App {
 
     private val userContextMap = ConcurrentHashMap<String, UserContext>()
 
@@ -43,5 +47,5 @@ fun echoMessage(message: String): String {
 }
 
 fun main(args: Array<String>) {
-    SpringApplication.run(Application::class.java, *args)
+    SpringApplication.run(App::class.java, *args)
 }
